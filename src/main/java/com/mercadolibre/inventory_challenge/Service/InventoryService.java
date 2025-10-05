@@ -1,5 +1,6 @@
 package com.mercadolibre.inventory_challenge.Service;
 
+import com.mercadolibre.inventory_challenge.exception.InventoryException;
 import com.mercadolibre.inventory_challenge.model.Inventory;
 import com.mercadolibre.inventory_challenge.model.StockMovement;
 import com.mercadolibre.inventory_challenge.repository.InventoryRepository;
@@ -34,10 +35,8 @@ public class InventoryService {
 
     @Transactional
     public Inventory updateStock(String sku, String storeId, Integer newStock) {
-        Inventory inventory = inventoryRepository.findAll().stream()
-                .filter(inv -> inv.getSku().equals(sku) && inv.getStoreId().equals(storeId))
-                .findFirst()
-                .orElse(Inventory.builder().sku(sku).storeId(storeId).quantity(0).build());
+        Inventory inventory = inventoryRepository.findBySkuAndStoreId(sku, storeId)
+                .orElseThrow(() -> new InventoryException("Inventory not found for SKU: " + sku + " and Store ID: " + storeId));
         inventory.setQuantity(newStock);
         return inventoryRepository.save(inventory);
     }

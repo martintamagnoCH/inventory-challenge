@@ -1,9 +1,6 @@
 package com.mercadolibre.inventory_challenge.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -19,4 +16,6 @@ public class Inventory {
     private String sku;
     private String storeId;
     private Integer quantity;
+    @Version
+    private Long version;
 }
