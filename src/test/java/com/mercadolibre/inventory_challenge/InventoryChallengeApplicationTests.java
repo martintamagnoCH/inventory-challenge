@@ -10,4 +10,8 @@ class InventoryChallengeApplicationTests {
 	void contextLoads() {
 	}
 
+    @Test
+    void mainRuns() {
+        InventoryChallengeApplication.main(new String[]{});
+    }
 }

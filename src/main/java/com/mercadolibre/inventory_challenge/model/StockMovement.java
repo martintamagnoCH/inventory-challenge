@@ -22,6 +22,6 @@ public class StockMovement {
     private String sku;
     private String storeId;
     private String type; // "sale" o "restock"
-    private Integer quantity;
+    private int quantity;
     private LocalDateTime timestamp;
 }

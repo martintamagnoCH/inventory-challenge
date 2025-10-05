@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -24,7 +25,7 @@ public class GlobalExceptionHandler {
         Map<String, Object> body = new HashMap<>();
         body.put("timestamp", LocalDateTime.now());
         body.put("error", ex.getMessage());
-        body.put("status", HttpStatus.BAD_REQUEST.value());
+        body.put("status", Optional.of(HttpStatus.BAD_REQUEST.value()));
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 
@@ -32,7 +33,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Object> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, Object> body = new HashMap<>();
         body.put("timestamp", LocalDateTime.now());
-        body.put("status", HttpStatus.BAD_REQUEST.value());
+        body.put("status", Optional.of(HttpStatus.BAD_REQUEST.value()));
 
         List<String> errors = ex.getBindingResult()
                 .getFieldErrors()
@@ -52,7 +53,7 @@ public class GlobalExceptionHandler {
         Map<String, Object> body = new HashMap<>();
         body.put("timestamp", LocalDateTime.now());
         body.put("error", "Concurrency conflict: Resource was modified by another transaction");
-        body.put("status", HttpStatus.CONFLICT.value());
+        body.put("status", Optional.of(HttpStatus.CONFLICT.value()));
         return new ResponseEntity<>(body, HttpStatus.CONFLICT);
     }
 
@@ -63,7 +64,7 @@ public class GlobalExceptionHandler {
         body.put("timestamp", LocalDateTime.now());
         body.put("error", "Unexpected error occurred");
         body.put("details", ex.getMessage());
-        body.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+        body.put("status", Optional.of(HttpStatus.INTERNAL_SERVER_ERROR.value()));
         return new ResponseEntity<>(body, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

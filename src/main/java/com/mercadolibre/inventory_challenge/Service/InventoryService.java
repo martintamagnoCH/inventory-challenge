@@ -15,14 +15,12 @@ import java.time.LocalDateTime;
 
 @Service
 public class InventoryService {
-    @Autowired
-    private InventoryRepository inventoryRepository;
+    private final InventoryRepository inventoryRepository;
+    private final StockMovementRepository stockMovementRepository;
 
-    @Autowired
-    private StockMovementRepository stockMovementRepository;
-
-    public InventoryService(InventoryRepository inventoryRepository) {
+    public InventoryService(InventoryRepository inventoryRepository, StockMovementRepository stockMovementRepository) {
         this.inventoryRepository = inventoryRepository;
+        this.stockMovementRepository = stockMovementRepository;
     }
 
     public List<Inventory> getAllInventory() {
