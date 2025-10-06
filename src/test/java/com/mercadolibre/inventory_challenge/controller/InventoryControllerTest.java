@@ -100,11 +100,12 @@ class InventoryControllerTest {
         when(inventoryService.registerMovement(eq("SKU1"), eq("Tienda1"), eq("sale"), eq(2)))
                 .thenReturn(movement);
 
-        StockMovementRequest req = new StockMovementRequest();
-        req.setSku("SKU1");
-        req.setStoreId("Tienda1");
-        req.setType("sale");
-        req.setQuantity(2);
+        StockMovementRequest req = StockMovementRequest.builder()
+                .sku("SKU1")
+                .storeId("Tienda1")
+                .type("sale")
+                .quantity(2)
+                .build();
 
         mockMvc.perform(post("/inventory/movement")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -117,10 +118,11 @@ class InventoryControllerTest {
     @Test
     void testRegisterMovement_validationError() throws Exception {
         // Falta type
-        StockMovementRequest req = new StockMovementRequest();
-        req.setSku("SKU1");
-        req.setStoreId("Tienda1");
-        req.setQuantity(2);
+        StockMovementRequest req = StockMovementRequest.builder()
+                .sku("SKU1")
+                .storeId("Tienda1")
+                .quantity(2)
+                .build();
 
         mockMvc.perform(post("/inventory/movement")
                         .contentType(MediaType.APPLICATION_JSON)
