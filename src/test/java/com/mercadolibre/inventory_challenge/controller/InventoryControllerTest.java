@@ -82,7 +82,6 @@ class InventoryControllerTest {
 
     @Test
     void testUpdateStock_validationError() throws Exception {
-        // Falta sku
         StockUpdateRequest req = new StockUpdateRequest();
         req.setStoreId("Tienda1");
         req.setNewStock(15);
@@ -131,7 +130,6 @@ class InventoryControllerTest {
 
     @Test
     void testUpdateStock_inventoryExceptionHandler() throws Exception {
-        // Mock: el service lanza InventoryException
         when(inventoryService.updateStock(anyString(), anyString(), anyInt()))
                 .thenThrow(new InventoryException("Stock inválido"));
 

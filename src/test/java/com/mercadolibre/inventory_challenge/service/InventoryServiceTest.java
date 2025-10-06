@@ -143,7 +143,6 @@ class InventoryServiceTest {
 
     @Test
     void testRegisterMovement_newInventoryIfNotExists() {
-        // No inventory in repo, should create new
         when(inventoryRepository.findAll()).thenReturn(List.of());
         when(inventoryRepository.save(any(Inventory.class))).thenAnswer(i -> i.getArgument(0));
         when(stockMovementRepository.save(any(StockMovement.class))).thenAnswer(i -> i.getArgument(0));
